@@ -1,11 +1,13 @@
 package com.kshrd.demobasicauth.controller;
 
 import com.kshrd.demobasicauth.model.TourType;
-import com.kshrd.demobasicauth.model.request.TourTypeRequest;
 import com.kshrd.demobasicauth.model.response.ApiResponse;
+import com.kshrd.demobasicauth.model.response.NoDataResponse;
 import com.kshrd.demobasicauth.service.TourTypeService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,11 +46,36 @@ public class TourTypeController {
     }
 
     @PostMapping(value = "/tour", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> insertTourType(@RequestParam MultipartFile imageFile, @RequestBody TourTypeRequest request) throws IOException {
+    public ResponseEntity<?> insertTourType(@RequestParam MultipartFile imageFile,
+                                            @RequestParam String title,
+                                            @RequestParam String description) throws IOException {
         ApiResponse<TourType> response = ApiResponse.<TourType>builder()
                 .message("Insert Successfully.")
                 .status(200)
-                .payload(tourTypeService.insertTourType(imageFile, request))
+                .payload(tourTypeService.insertTourType(imageFile, title, description))
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping(value = "/updatetour", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ApiResponse<TourType>> updateSlider(@RequestParam MultipartFile imageFile,
+                                                            @RequestParam Long id,
+                                                            @RequestParam String title,
+                                                            @RequestParam String description) {
+        ApiResponse<TourType> response = ApiResponse.<TourType>builder()
+                .status(200)
+                .message("Updated Successfully.")
+                .payload(tourTypeService.updateTourType(imageFile, id, title, description))
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/deletetour/{id}")
+    public ResponseEntity<?> deleteTourType(@PathVariable Long id) throws IOException {
+        tourTypeService.deleteTourType(id);
+        NoDataResponse response = NoDataResponse.builder()
+                .status(200)
+                .message("Deleted Successfully.")
                 .build();
         return ResponseEntity.ok(response);
     }

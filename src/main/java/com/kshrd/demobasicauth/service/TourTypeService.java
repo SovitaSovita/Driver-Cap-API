@@ -1,7 +1,6 @@
 package com.kshrd.demobasicauth.service;
 
 import com.kshrd.demobasicauth.model.TourType;
-import com.kshrd.demobasicauth.model.request.TourTypeRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -12,5 +11,9 @@ public interface TourTypeService {
 
     Object getTourTypeById(Long id);
 
-    TourType insertTourType(MultipartFile imageFile, TourTypeRequest request) throws IOException;
+    TourType insertTourType(MultipartFile imageFile, String title, String description) throws IOException;
+
+    void deleteTourType(Long id) throws IOException;
+
+    TourType updateTourType(MultipartFile imageFile, Long id, String title, String description);
 }

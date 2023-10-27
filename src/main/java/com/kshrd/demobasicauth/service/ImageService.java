@@ -14,7 +14,6 @@ import java.nio.file.Paths;
 public class ImageService {
     public Resource getImagesByFileName(String fileName) throws NotFoundExceptionClass, IOException {
         Path path = Paths.get("src/main/resources/images/"+ fileName);
-        System.out.println("path : "+ path);
 
         //get and response as image
         return new ByteArrayResource(Files.readAllBytes(path));

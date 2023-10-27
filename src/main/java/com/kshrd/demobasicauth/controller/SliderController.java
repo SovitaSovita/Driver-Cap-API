@@ -4,6 +4,7 @@ package com.kshrd.demobasicauth.controller;
 import com.kshrd.demobasicauth.model.Slider;
 import com.kshrd.demobasicauth.model.request.SliderRequest;
 import com.kshrd.demobasicauth.model.response.ApiResponse;
+import com.kshrd.demobasicauth.model.response.NoDataResponse;
 import com.kshrd.demobasicauth.service.SliderServiceImpl;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
@@ -61,7 +62,9 @@ public class SliderController {
         return ResponseEntity.ok(response);
     }
     @PutMapping(value = "/updateSlider", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ApiResponse<Slider>> updateSlider(@RequestParam MultipartFile imageFile, @RequestParam Long id, @RequestParam String title) {
+    public ResponseEntity<ApiResponse<Slider>> updateSlider(@RequestParam MultipartFile imageFile,
+                                                            @RequestParam Long id,
+                                                            @RequestParam String title) {
         ApiResponse<Slider> response = ApiResponse.<Slider>builder()
                 .status(200)
                 .message("Updated Successfully.")
@@ -72,7 +75,7 @@ public class SliderController {
     @DeleteMapping("/deleteSlider/{id}")
     public ResponseEntity<?> deleteSlider(@PathVariable Long id) throws IOException {
         sliderService.deleteSlider(id);
-        ApiResponse<Slider> response = ApiResponse.<Slider>builder()
+        NoDataResponse response = NoDataResponse.builder()
                 .status(200)
                 .message("Deleted Successfully.")
                 .build();
