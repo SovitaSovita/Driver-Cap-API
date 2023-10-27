@@ -23,7 +23,7 @@ public class TourTypeServiceImpl implements TourTypeService{
 
     private final TourTypeRepository tourTypeRepository;
 
-    private final Path root = Paths.get("src/main/resources/images/tourType");
+    private final Path root = Paths.get("src/main/resources/images");
 
     @Override
     public List<TourType> getTourType() {
