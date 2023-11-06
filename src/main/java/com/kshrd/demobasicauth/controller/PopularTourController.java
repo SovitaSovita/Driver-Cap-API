@@ -16,10 +16,10 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@CrossOrigin
 @RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
 @RequestMapping("/api/v1")
+@CrossOrigin
 public class PopularTourController {
 
     private final PopularTourService popularTourService;

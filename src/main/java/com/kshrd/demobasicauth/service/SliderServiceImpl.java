@@ -58,7 +58,8 @@ public class SliderServiceImpl implements SliderService{
                     fileName.contains(".jpg") ||
                     fileName.contains(".jpeg") ||
                     fileName.contains(".ong") ||
-                    fileName.contains((".png"))
+                    fileName.contains((".png")) ||
+                    fileName.contains((".webp"))
             ){
                 fileName = UUID.randomUUID() +  "." + StringUtils.getFilenameExtension(fileName);
 
