@@ -50,7 +50,10 @@ public class GeneralInfoServiceImpl implements GeneralInfoService{
                 logger.error("An IOException occurred: ", e.getMessage());
             }
 
+            System.out.println("file ::" + fileName);
+
             fileName = UUID.randomUUID() + "." + StringUtils.getFilenameExtension(fileName);
+            System.out.println("file after ::" + fileName);
             try {
                 Files.copy(file.getInputStream(), root.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
                 existInfo.setImage(fileName);

@@ -62,7 +62,7 @@ public class SliderController {
         return ResponseEntity.ok(response);
     }
     @PutMapping(value = "/updateSlider", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ApiResponse<Slider>> updateSlider(@RequestParam MultipartFile imageFile,
+    public ResponseEntity<ApiResponse<Slider>> updateSlider(@RequestParam(required = false) MultipartFile imageFile,
                                                             @RequestParam Long id,
                                                             @RequestParam String title) {
         ApiResponse<Slider> response = ApiResponse.<Slider>builder()

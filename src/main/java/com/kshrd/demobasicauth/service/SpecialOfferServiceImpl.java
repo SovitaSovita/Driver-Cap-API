@@ -36,7 +36,7 @@ public class SpecialOfferServiceImpl implements SpecialOfferService {
     }
 
     @Override
-    public SpecialOffer insertSpecialOffer(String title, String price, String duration, List<MultipartFile> imgList) throws IOException {
+    public SpecialOffer insertSpecialOffer(String title, String price, String duration, List<String> description, List<MultipartFile> imgList) throws IOException {
 
         SpecialOffer specialOffer = new SpecialOffer();
         specialOffer.setTitle(title);
@@ -45,20 +45,19 @@ public class SpecialOfferServiceImpl implements SpecialOfferService {
 
         List<String> imagePaths = saveImagesToFileSystem(imgList);
 
-        System.out.println("images path : " + imagePaths);
-
         List<SpecialOfferImage> imageMetadataList = new ArrayList<>();
         for (String imagePath : imagePaths) {
-            SpecialOfferImage imageMetadata = new SpecialOfferImage();
-            imageMetadata.setFileName(getFileNameFromPath(imagePath)); // Extract the file name
-            imageMetadata.setSpecialOffer(specialOffer);
-            imageMetadataList.add(imageMetadata);
+            SpecialOfferImage metadata = new SpecialOfferImage();
+            metadata.setFileName(getFileNameFromPath(imagePath));
+            // Extract the file name
+            for (String desc : description) {
+                metadata.setDescription(desc);
+            }
+            metadata.setSpecialOffer(specialOffer);
+            imageMetadataList.add(metadata);
         }
 
-        System.out.println("imageMetadataList" + imageMetadataList);
-
         specialOffer.setImgList(imageMetadataList);
-
 
         return specialOfferRepository.save(specialOffer);
     }
@@ -73,6 +72,24 @@ public class SpecialOfferServiceImpl implements SpecialOfferService {
 
         // Delete the SpecialOffer entity
         specialOfferRepository.deleteById(id);
+    }
+
+    @Override
+    public SpecialOffer updateSpecialOffer(Long id, String title, String price, String duration) throws IOException {
+        SpecialOffer specialOffer = specialOfferRepository.findById(id)
+                .orElseThrow(() -> new NotFoundExceptionClass("SpecialOffer not found with id: " + id));
+
+        //delete
+        //deleteImagesFromFileSystem(specialOffer.getImgList());
+        //specialOfferRepository.deleteById(id);
+        specialOffer.setImgList(specialOffer.getImgList());
+
+        //set new value
+        specialOffer.setTitle(title);
+        specialOffer.setPrice(price);
+        specialOffer.setDuration(duration);
+
+        return specialOfferRepository.save(specialOffer);
     }
 
     private List<String> saveImagesToFileSystem(List<MultipartFile> imgList) throws IOException {
@@ -107,8 +124,6 @@ public class SpecialOfferServiceImpl implements SpecialOfferService {
 
     private void deleteImagesFromFileSystem(List<SpecialOfferImage> imageList) throws IOException {
         for (SpecialOfferImage image : imageList) {
-
-
             try {
                 Path imagePath = root.resolve(image.getFileName());
                 Files.deleteIfExists(imagePath);
@@ -119,4 +134,7 @@ public class SpecialOfferServiceImpl implements SpecialOfferService {
         }
     }
 }
+
+
+
 

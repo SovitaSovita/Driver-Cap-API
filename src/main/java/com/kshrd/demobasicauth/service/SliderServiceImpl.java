@@ -84,7 +84,7 @@ public class SliderServiceImpl implements SliderService{
                 .orElseThrow(() -> new NotFoundExceptionClass("Slider not found with id " + id));
         existSlider.setTitle(title);
 
-        if (file != null) {
+        if (file != null && !file.isEmpty()) {
             String fileName = existSlider.getImage();
             Path imagePath = root.resolve(fileName);
 

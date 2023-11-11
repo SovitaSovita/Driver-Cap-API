@@ -15,6 +15,7 @@ public class SpecialOfferImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String fileName;
+    private String description;
     @ManyToOne
     @JoinColumn(name = "special_offer_id")
     @JsonIgnore

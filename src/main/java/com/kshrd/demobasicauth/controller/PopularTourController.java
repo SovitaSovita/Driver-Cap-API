@@ -58,7 +58,7 @@ public class PopularTourController {
     }
 
     @PutMapping(value = "/updatepopulartours", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ApiResponse<PopularTour>> updateSlider(@RequestParam MultipartFile imageFile,
+    public ResponseEntity<ApiResponse<PopularTour>> updateSlider(@RequestParam(required = false) MultipartFile imageFile,
                                                             @RequestParam Long id,
                                                             @RequestParam String title,
                                                             @RequestParam String duration,

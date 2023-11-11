@@ -31,7 +31,7 @@ public class GeneralInfoController {
     }
 
     @PutMapping(value = "/updateInfo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ApiResponse<GeneralInfo>> updateSlider(@RequestParam MultipartFile imageFile,
+    public ResponseEntity<ApiResponse<GeneralInfo>> updateSlider(@RequestParam(required = false) MultipartFile imageFile,
                                                               @RequestParam String timeWork,
                                                               @RequestParam String description) {
         ApiResponse<GeneralInfo> response = ApiResponse.<GeneralInfo>builder()

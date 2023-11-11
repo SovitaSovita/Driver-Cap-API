@@ -58,7 +58,7 @@ public class TourTypeController {
     }
 
     @PutMapping(value = "/updatetour", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ApiResponse<TourType>> updateSlider(@RequestParam MultipartFile imageFile,
+    public ResponseEntity<ApiResponse<TourType>> updateSlider(@RequestParam(required = false) MultipartFile imageFile,
                                                             @RequestParam Long id,
                                                             @RequestParam String title,
                                                             @RequestParam String description) {

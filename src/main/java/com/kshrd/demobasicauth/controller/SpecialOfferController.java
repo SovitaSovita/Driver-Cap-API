@@ -38,12 +38,28 @@ public class SpecialOfferController {
                                                         @RequestParam String title,
                                                         @RequestParam String price,
                                                         @RequestParam String duration,
+                                                        @RequestParam List<String> description,
                                                         @RequestParam List<MultipartFile> imgList) throws IOException {
 
         ApiResponse<SpecialOffer> response = ApiResponse.<SpecialOffer>builder()
                 .message("Inserted Successfully.")
                 .status(200)
-                .payload(specialOfferService.insertSpecialOffer(title, price, duration, imgList))
+                .payload(specialOfferService.insertSpecialOffer(title, price, duration, description, imgList))
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping( "/updateOffer")
+    public ResponseEntity<ApiResponse<SpecialOffer>> updateSpecialOffer(
+            @RequestParam Long id,
+            @RequestParam String title,
+            @RequestParam String price,
+            @RequestParam String duration) throws IOException {
+
+        ApiResponse<SpecialOffer> response = ApiResponse.<SpecialOffer>builder()
+                .message("Updated Successfully.")
+                .status(200)
+                .payload(specialOfferService.updateSpecialOffer(id, title, price, duration))
                 .build();
         return ResponseEntity.ok(response);
     }
