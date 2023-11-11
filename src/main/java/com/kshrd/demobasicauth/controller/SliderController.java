@@ -2,7 +2,6 @@ package com.kshrd.demobasicauth.controller;
 
 
 import com.kshrd.demobasicauth.model.Slider;
-import com.kshrd.demobasicauth.model.request.SliderRequest;
 import com.kshrd.demobasicauth.model.response.ApiResponse;
 import com.kshrd.demobasicauth.model.response.NoDataResponse;
 import com.kshrd.demobasicauth.service.SliderServiceImpl;

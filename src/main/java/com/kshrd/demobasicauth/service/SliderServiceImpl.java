@@ -1,14 +1,10 @@
 package com.kshrd.demobasicauth.service;
 
-import com.kshrd.demobasicauth.controller.SliderController;
 import com.kshrd.demobasicauth.exception.AlreadyExistException;
 import com.kshrd.demobasicauth.exception.NotFoundExceptionClass;
 import com.kshrd.demobasicauth.model.Slider;
-import com.kshrd.demobasicauth.model.request.SliderRequest;
 import com.kshrd.demobasicauth.repository.SliderRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.flogger.Flogger;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +18,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Service

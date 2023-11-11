@@ -1,7 +1,6 @@
 package com.kshrd.demobasicauth.controller;
 
 import com.kshrd.demobasicauth.model.GeneralInfo;
-import com.kshrd.demobasicauth.model.TourType;
 import com.kshrd.demobasicauth.model.response.ApiResponse;
 import com.kshrd.demobasicauth.service.GeneralInfoService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

@@ -1,7 +1,6 @@
 package com.kshrd.demobasicauth.service;
 
 import com.kshrd.demobasicauth.exception.NotFoundExceptionClass;
-import com.kshrd.demobasicauth.model.Slider;
 import com.kshrd.demobasicauth.model.TourType;
 import com.kshrd.demobasicauth.repository.TourTypeRepository;
 import lombok.RequiredArgsConstructor;

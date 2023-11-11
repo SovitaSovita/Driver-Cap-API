@@ -1,7 +1,6 @@
 package com.kshrd.demobasicauth.controller;
 
 import com.kshrd.demobasicauth.model.FooterInfo;
-import com.kshrd.demobasicauth.model.Slider;
 import com.kshrd.demobasicauth.model.response.ApiResponse;
 import com.kshrd.demobasicauth.service.FooterInfoService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

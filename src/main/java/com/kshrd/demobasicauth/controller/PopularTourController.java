@@ -4,7 +4,6 @@ import com.kshrd.demobasicauth.model.PopularTour;
 import com.kshrd.demobasicauth.model.response.ApiResponse;
 import com.kshrd.demobasicauth.model.response.NoDataResponse;
 import com.kshrd.demobasicauth.service.PopularTourService;
-import com.kshrd.demobasicauth.service.PopularTourService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
