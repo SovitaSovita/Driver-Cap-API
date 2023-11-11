@@ -81,7 +81,7 @@ public class SliderServiceImpl implements SliderService{
     @Override
     public Slider updateSlider(MultipartFile file, Long id, String title) {
         Slider existSlider = sliderRepository.findById(id)
-                .orElseThrow(() -> new NotFoundExceptionClass("Slider not found with id " + id));
+                .orElseThrow(() -> new NotFoundExceptionClass(" Slider not found with id " + id));
         existSlider.setTitle(title);
 
         if (file != null && !file.isEmpty()) {
