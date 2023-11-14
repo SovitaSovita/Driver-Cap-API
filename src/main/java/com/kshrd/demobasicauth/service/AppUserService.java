@@ -4,6 +4,7 @@ import com.kshrd.demobasicauth.exception.NotFoundExceptionClass;
 import com.kshrd.demobasicauth.model.AppUser;
 import com.kshrd.demobasicauth.model.AppUserDto;
 import com.kshrd.demobasicauth.model.request.AppUserRequest;
+import com.kshrd.demobasicauth.model.request.ChangePwRequest;
 import com.kshrd.demobasicauth.repository.AppUserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -47,5 +48,25 @@ public class AppUserService implements UserDetailsService {
     }
     private boolean userEmailExists(String email) {
         return appUserRepository.existsByEmail(email);
+    }
+
+    public void changePassword(Long id, ChangePwRequest password) {
+        String pass = passwordEncoder.encode(password.getCurrentPassword());
+        String newpass = passwordEncoder.encode(password.getNewPassword());
+
+        AppUser getOldPw = appUserRepository.getAppUserById(id);
+
+        if (!passwordEncoder.matches(password.getCurrentPassword(), getOldPw.getPassword())) {
+            throw new IllegalArgumentException("Current Password isn't correct. Please Try Again.");
+        }
+        if (passwordEncoder.matches(password.getNewPassword(), getOldPw.getPassword())){
+            throw new IllegalArgumentException("your new password is still the same with your old password");
+        }
+        if (!password.getNewPassword().equals(password.getConfirmPassword())) {
+            throw new IllegalArgumentException("your confirm password is not match with your new password");
+        }
+        AppUser appUser = appUserRepository.findById(id).orElseThrow(() -> new NotFoundExceptionClass("User with id " + id + " not found"));
+        appUser.setPassword(newpass);
+        appUserRepository.save(appUser);
     }
 }
