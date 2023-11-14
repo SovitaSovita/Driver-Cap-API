@@ -68,7 +68,7 @@ public class DatabaseSecurityConfig {
                                 "/api/v1/footer",
                                 "/api/v1/generalinfo",
                                 "/api/v1/specialOffers",
-                                "/api/v1/specialOffers/**",
+                                "/api/v1/specialOffer/**",
                                 "/v3/api-docs/**",
                                 "/api/v1/images",
                                 "/api/v1/images/**",

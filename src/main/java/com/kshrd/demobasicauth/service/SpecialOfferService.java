@@ -14,4 +14,6 @@ public interface SpecialOfferService {
     void deleteSpecialOffer(Long id) throws IOException;
 
     SpecialOffer updateSpecialOffer(Long id, String title, String price, String duration) throws IOException;
+
+    SpecialOffer getSpecialOfferById(Long id);
 }

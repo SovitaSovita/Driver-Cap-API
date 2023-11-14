@@ -36,6 +36,11 @@ public class SpecialOfferServiceImpl implements SpecialOfferService {
     @Override
     public SpecialOffer insertSpecialOffer(String title, String price, String duration, List<String> description, List<MultipartFile> imgList) throws IOException {
 
+        System.out.println("desc" + description);
+        System.out.println("imgList" + imgList);
+        System.out.println("title" + title);
+        System.out.println("price" + price);
+        System.out.println("duration" + duration);
         SpecialOffer specialOffer = new SpecialOffer();
         specialOffer.setTitle(title);
         specialOffer.setPrice(price);
@@ -44,16 +49,16 @@ public class SpecialOfferServiceImpl implements SpecialOfferService {
         List<String> imagePaths = saveImagesToFileSystem(imgList);
 
         List<SpecialOfferImage> imageMetadataList = new ArrayList<>();
-        for (String imagePath : imagePaths) {
+        for (int i = 0; i < imagePaths.size(); i++) {
             SpecialOfferImage metadata = new SpecialOfferImage();
-            metadata.setFileName(getFileNameFromPath(imagePath));
-            // Extract the file name
-            for (String desc : description) {
-                metadata.setDescription(desc);
+            metadata.setFileName(getFileNameFromPath(imagePaths.get(i)));
+            if (i < description.size()) {
+                metadata.setDescription(description.get(i));
             }
             metadata.setSpecialOffer(specialOffer);
             imageMetadataList.add(metadata);
         }
+
 
         specialOffer.setImgList(imageMetadataList);
 
@@ -88,6 +93,12 @@ public class SpecialOfferServiceImpl implements SpecialOfferService {
         specialOffer.setDuration(duration);
 
         return specialOfferRepository.save(specialOffer);
+    }
+
+    @Override
+    public SpecialOffer getSpecialOfferById(Long id) {
+        return specialOfferRepository.findById(id)
+                .orElseThrow(() -> new NotFoundExceptionClass("SpecialOffer ID " + id + " not found."));
     }
 
     private List<String> saveImagesToFileSystem(List<MultipartFile> imgList) throws IOException {

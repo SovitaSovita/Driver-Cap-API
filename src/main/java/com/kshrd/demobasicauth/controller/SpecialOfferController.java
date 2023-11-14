@@ -32,6 +32,16 @@ public class SpecialOfferController {
                 .build();
         return ResponseEntity.ok(response);
     }
+    @GetMapping("/specialOffer/{id}")
+    public ResponseEntity<ApiResponse<SpecialOffer>> getSpecialOfferById(@PathVariable Long id){
+
+        ApiResponse<SpecialOffer> response = ApiResponse.<SpecialOffer>builder()
+                .message("Get Successfully.")
+                .status(200)
+                .payload(specialOfferService.getSpecialOfferById(id))
+                .build();
+        return ResponseEntity.ok(response);
+    }
 
     @PostMapping(value = "/specialOffer", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiResponse<SpecialOffer>> insertSpecialOffer(

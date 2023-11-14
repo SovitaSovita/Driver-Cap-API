@@ -89,10 +89,7 @@ public class PopularTourImpl implements PopularTourService{
                 logger.error("An IOException occurred: ", e.getMessage());
             }
 
-            System.out.println("file ::" + fileName);
-
             fileName = UUID.randomUUID() + "." + StringUtils.getFilenameExtension(fileName);
-            System.out.println("file afrtwer ::" + fileName);
 
             try {
                 Files.copy(file.getInputStream(), root.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
