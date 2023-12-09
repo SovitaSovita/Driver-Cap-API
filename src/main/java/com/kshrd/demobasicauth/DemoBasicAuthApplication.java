@@ -1,13 +1,16 @@
 package com.kshrd.demobasicauth;
 
+import com.kshrd.demobasicauth.service.SimpleTelegramBot;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Info;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 @SpringBootApplication(exclude = {UserDetailsServiceAutoConfiguration.class})
 @SecurityScheme(
@@ -21,8 +24,21 @@ import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServic
 )
 public class DemoBasicAuthApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(DemoBasicAuthApplication.class, args);
+    private static SimpleTelegramBot simpleTelegramBot;
+
+    public DemoBasicAuthApplication(SimpleTelegramBot simpleTelegramBot) {
+        this.simpleTelegramBot = simpleTelegramBot;
     }
 
+    public static void main(String[] args) {
+        SpringApplication.run(DemoBasicAuthApplication.class, args);
+
+        try {
+            // Initialize and register your bot when the application starts
+        TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
+        botsApi.registerBot(simpleTelegramBot);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
 }

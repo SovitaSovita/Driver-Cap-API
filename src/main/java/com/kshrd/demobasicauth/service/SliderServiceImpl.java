@@ -11,6 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,11 +29,14 @@ public class SliderServiceImpl implements SliderService{
 
     private static final Logger logger = LoggerFactory.getLogger(SliderServiceImpl.class);
     private final SliderRepository sliderRepository;
+    private final SimpleTelegramBot simpleTelegramBot;
     private final ModelMapper mapper = new ModelMapper();
     private final Path root = Paths.get("src/main/resources/images");
 
     @Override
-    public List<Slider> getSlider() {
+    public List<Slider> getSlider() throws TelegramApiException {
+//        TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
+//        botsApi.registerBot(simpleTelegramBot);
         return sliderRepository.findAll();
     }
 
